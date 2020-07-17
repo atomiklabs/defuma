@@ -3,9 +3,9 @@ import 'antd/dist/antd.css';
 import { ethers } from "ethers";
 import "./App.css";
 import { Row, Col, Input, Button, Spin } from 'antd';
-import { Transactor } from "./helpers"
-import { useExchangePrice, useGasPrice, useContractLoader, useContractReader } from "./hooks"
-import { Header, Account, Provider, Faucet, Ramp, Address, Contract } from "./components"
+import { Transactor } from "../helpers"
+import { useExchangePrice, useGasPrice, useContractLoader, useContractReader } from "../hooks"
+import { Header, Account, Provider, Faucet, Ramp, Address, Contract } from "../components"
 const { TextArea } = Input;
 const { BufferList } = require('bl')
 
@@ -31,7 +31,7 @@ const addToIPFS = async fileToUpload => {
   }
 }
 
-const mainnetProvider = new ethers.providers.InfuraProvider("mainnet","2717afb6bf164045b5d5468031b93f87")
+const mainnetProvider = new ethers.providers.InfuraProvider("mainnet","3041d1e3224845e3a6a24060df6a8c7f")
 const localProvider = new ethers.providers.JsonRpcProvider(process.env.REACT_APP_PROVIDER?process.env.REACT_APP_PROVIDER:"http://localhost:8545")
 
 function App() {

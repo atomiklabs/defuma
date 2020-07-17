@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import "./index.css";
-import App from "./App";
+import { Publisher } from "./publisher";
 
 // This is the official Uniswap v1 subgraph. You can replace it with your own, if you need to.
 // See all subgraphs: https://thegraph.com/explorer/
@@ -13,7 +13,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Publisher />
   </ApolloProvider>,
   document.getElementById("root"),
 );

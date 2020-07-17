@@ -3,7 +3,7 @@ const chalk = require('chalk');
 const bre = require("@nomiclabs/buidler");
 const contractDir = "./contracts"
 async function main() {
-  const publishDir = "../react-app/src/contracts"
+  const publishDir = "../web-ui/src/contracts"
   if (!fs.existsSync(publishDir)){
     fs.mkdirSync(publishDir);
   }

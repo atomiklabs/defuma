@@ -3,7 +3,7 @@ import { WalletOutlined, QrcodeOutlined, SendOutlined } from '@ant-design/icons'
 import { Typography, Tooltip, Spin, Modal, Button } from 'antd'
 import QR from 'qrcode.react'
 import { ethers } from 'ethers'
-import { Address, Balance, AddressInput, EtherInput } from './'
+import { Address, Balance, AddressInput, EtherInput } from '.'
 import { Transactor } from '../helpers'
 const { Text } = Typography
 
@@ -126,7 +126,6 @@ export const Wallet = (props) => {
       </Button>
     )
   }
-
   return (
     <span>
       {providerSend}

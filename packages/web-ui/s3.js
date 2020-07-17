@@ -5,7 +5,7 @@ const directoryName = 'build'
 const BUCKETNAME = ""   // <<---- SET YOUR BUCKET NAME AND CREATE aws.json ** see below vvvvvvvvvv
 
 if(!BUCKETNAME){
-  console.log('☢️   Enter a bucket name in packages/react-app/s3.js ')
+  console.log('☢️   Enter a bucket name in packages/web-ui/s3.js ')
   process.exit(1)
 }
 
@@ -14,7 +14,7 @@ try{
   credentials = JSON.parse(fs.readFileSync("aws.json"))
 }catch(e){
   console.log(e)
-  console.log('☢️   Create an aws.json credentials file in packages/react-app/ like { "accessKeyId": "xxx", "secretAccessKey": "xxx", "region": "xxx" } ')
+  console.log('☢️   Create an aws.json credentials file in packages/web-ui/ like { "accessKeyId": "xxx", "secretAccessKey": "xxx", "region": "xxx" } ')
   process.exit(1)
 }
 console.log("credentials",credentials)

@@ -6,17 +6,16 @@ const { Text } = Typography
 export const Address = (props) => {
   const [ens, setEns] = useState(0)
 
-  async function getEns() {
-    let newEns
-    try {
-      //console.log("getting ens",newEns)
-      newEns = await props.ensProvider.lookupAddress(props.value)
-      setEns(newEns)
-    } catch (e) {}
-  }
-
   useEffect(() => {
     if (props.value && props.ensProvider) {
+      const getEns = async () => {
+        let newEns
+        try {
+          //console.log("getting ens",newEns)
+          newEns = await props.ensProvider.lookupAddress(props.value)
+          setEns(newEns)
+        } catch (e) {}
+      }
       getEns()
     }
   }, [props.value, props.ensProvider])

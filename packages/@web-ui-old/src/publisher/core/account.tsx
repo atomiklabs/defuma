@@ -4,7 +4,7 @@ import BurnerProvider from 'burner-provider'
 import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { Button } from 'antd'
-import { Balance, Address, Wallet } from './'
+import { Balance, Address, Wallet } from '.'
 import { usePoller } from '../hooks'
 
 const INFURA_ID = '3041d1e3224845e3a6a24060df6a8c7f'
@@ -112,7 +112,7 @@ export const Account = (props) => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (web3Modal.cachedProvider) {
       loadWeb3Modal()
     }

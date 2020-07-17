@@ -10,32 +10,31 @@ export const AddressInput = (props) => {
 
   const currentValue = typeof props.value != 'undefined' ? props.value : value
 
-  async function getEns() {
-    let newEns
-    try {
-      console.log('trying reverse ens', newEns)
-
-      newEns = await props.ensProvider.lookupAddress(currentValue)
-      console.log('setting ens', newEns)
-      setEns(newEns)
-    } catch (e) {}
-    console.log('checking resolve')
-    if (currentValue.indexOf('.eth') > 0 || currentValue.indexOf('.xyz') > 0) {
-      try {
-        console.log('resolving')
-        let possibleAddress = await props.ensProvider.resolveName(currentValue)
-        console.log('GOT:L', possibleAddress)
-        if (possibleAddress) {
-          setEns(currentValue)
-          props.onChange(possibleAddress)
-        }
-      } catch (e) {}
-    }
-  }
-
   useEffect(() => {
     setEns(0)
     if (currentValue && props.ensProvider) {
+      const getEns = async () => {
+        let newEns
+        try {
+          console.log('trying reverse ens', newEns)
+
+          newEns = await props.ensProvider.lookupAddress(currentValue)
+          console.log('setting ens', newEns)
+          setEns(newEns)
+        } catch (e) {}
+        console.log('checking resolve')
+        if (currentValue.indexOf('.eth') > 0 || currentValue.indexOf('.xyz') > 0) {
+          try {
+            console.log('resolving')
+            let possibleAddress = await props.ensProvider.resolveName(currentValue)
+            console.log('GOT:L', possibleAddress)
+            if (possibleAddress) {
+              setEns(currentValue)
+              props.onChange(possibleAddress)
+            }
+          } catch (e) {}
+        }
+      }
       getEns()
     }
   }, [props])
