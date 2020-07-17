@@ -172,14 +172,14 @@ export const Publisher = () => {
       </div>
 
       <div style={{ padding: 32, textAlign: 'left' }}>{attestationDisplay}</div>
-{/*
+
       <div style={{padding:64,textAlign: "left"}}>
         <Contract
           name={"Attestor"}
           provider={injectedProvider}
           address={address}
         />
-      </div> */}
+      </div>
 
       <div style={{ position: 'fixed', textAlign: 'right', right: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={4}>
