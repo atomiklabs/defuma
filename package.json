@@ -5,30 +5,10 @@
   "author": "Atomik Labs",
   "private": true,
   "scripts": {
-    "web-ui:build": "yarn workspace @atomiklabs/web-ui build --max-old-space-size=12288",
-    "web-ui:eject": "yarn workspace @atomiklabs/web-ui eject",
-    "web-ui:start": "yarn workspace @atomiklabs/web-ui start",
-    "web-ui:test": "yarn workspace @atomiklabs/web-ui test",
-    "ship": "echo 'Sorry, this does not work yet'",
-    "build": "yarn workspace @atomiklabs/web-ui build --max-old-space-size=12288",
-    "chain": "cd packages/buidler && npx buidler node",
-    "node": "cd packages/buidler && npx buidler node",
-    "test": "cd packages/buidler && npx buidler test",
     "start": "yarn workspace @atomiklabs/web-ui start",
-    "compile": "cd packages/buidler && npx buidler compile",
-    "deploy": "cd packages/buidler && npx buidler run scripts/deploy.js && npx buidler run scripts/publish.js",
-    "watch": "cd packages/buidler && node scripts/watch.js",
-    "accounts": "cd packages/buidler && npx buidler accounts",
-    "balance": "cd packages/buidler && npx buidler balance",
-    "send": "cd packages/buidler && npx buidler send",
-    "ipfs": "cd packages/web-ui && node ipfs",
-    "surge": "surge packages/web-ui/build",
-    "s3": "cd packages/web-ui && node s3"
-  },
-  "devDependencies": {
-    "@nomiclabs/buidler": "1.3.3-rc.0",
-    "@nomiclabs/buidler-truffle5": "1.3.3-rc.0",
-    "@nomiclabs/buidler-web3": "1.3.3-rc.0"
+    "chain": "yarn workspace @atomiklabs/actors chain",
+    "deploy": "yarn workspace @atomiklabs/actors deploy",
+    "ipfs": "yarn workspace @atomiklabs/web-ui ipfs"
   },
   "workspaces": {
     "packages": [
