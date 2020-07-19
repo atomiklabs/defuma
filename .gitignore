@@ -1,22 +1,7 @@
-
-**/aws.json
-
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 **/node_modules
-packages/buidler/artifacts
-packages/react-app/src/contracts
-packages/buidler/cache
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-
-# testing
-coverage
-
-# production
-build
 
 # misc
 .DS_Store

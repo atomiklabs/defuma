@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useBuckets } from './hooks';
 import { LinksObject } from './buckets';
 
@@ -13,6 +13,10 @@ export function ContentManager({
   userApiKey,
   userApiSecret,
 }: ContentManagerProps) {
+  useEffect(() => {
+    localStorage.clear()
+  }, [])
+
   const hookData = useBuckets({userApiKey, userApiSecret, bucketName })
 
   console.log({ ...hookData });

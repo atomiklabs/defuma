@@ -1,0 +1,29 @@
+{
+  "name": "@atomiklabs/actors",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "chain": "yarn buidler node",
+    "test": "yarn buidler test --network buidlerevm",
+    "compile": "yarn buidler compile",
+    "deploy": "yarn buidler run scripts/deploy.js && yarn buidler run scripts/publish.js",
+    "watch": "node scripts/watch.js",
+    "accounts": "yarn buidler accounts",
+    "balance": "yarn buidler balance",
+    "send": "yarn buidler send"
+  },
+  "devDependencies": {
+    "@nomiclabs/buidler": "^1.3.8",
+    "@nomiclabs/buidler-ethers": "^2.0.0",
+    "@nomiclabs/buidler-truffle5": "^1.3.4",
+    "@nomiclabs/buidler-waffle": "^2.0.0",
+    "@nomiclabs/buidler-web3": "^1.3.4",
+    "@openzeppelin/contracts": "^3.1.0",
+    "chai": "^4.2.0",
+    "ethereum-waffle": "^3.0.2",
+    "ethers": "^5.0.5",
+    "node-watch": "^0.6.3",
+    "web3": "^1.2.10"
+  }
+}
