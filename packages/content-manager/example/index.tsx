@@ -17,6 +17,8 @@ const props = {
   userApiSecret: process.env.BUCKETS_USER_API_SECRET || '',
 };
 
+console.log({ props })
+
 function App() {
   return <ContentManager {...props} />;
 }
