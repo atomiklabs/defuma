@@ -1,0 +1,13 @@
+{
+  "provider": "Music Shop 2",
+  "products:": {
+    "product-guitar": {
+      "name": "guitar.json",
+      "path": "products/guitar.json"
+    },
+    "product-piano": {
+      "name": "piano.json",
+      "path": "products/piano.json"
+    }
+  }
+}
