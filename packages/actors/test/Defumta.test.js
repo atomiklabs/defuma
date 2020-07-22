@@ -17,7 +17,6 @@ describe('Defuma', () => {
     await defuma.deployed()
   })
 
-
   describe('Provider', () => {
     describe('registerProvider()', () => {
       it('adds a provider to the list and increases provivderCount', async () => {
@@ -29,10 +28,14 @@ describe('Defuma', () => {
         const actualProvider = await defuma.providers(providerCount)
         expect(actualProvider).to.eq(provider)
       })
+
+      it('emits a Provider event', async () => {
+        await expect(defuma.registerProvider(provider)).to.emit(defuma, 'Provider')
+      })
     })
 
     describe('addProviderData()', () => {
-      it('adds an IPNS hash pointing at Provider\'s bucket', async () => {
+      it("adds an IPNS hash pointing at Provider's bucket", async () => {
         // Can be a struct if we want to include more data eg:
         //  -  struct Data { ipns: ... , data: {...} }
         //
@@ -81,6 +84,5 @@ describe('Defuma', () => {
 
       expect(result).to.deep.eq(expected)
     })
-
   })
 })

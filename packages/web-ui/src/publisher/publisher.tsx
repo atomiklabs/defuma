@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { ethers } from 'ethers'
@@ -33,7 +33,7 @@ const ABIs = [[DefumaABIAddress, DefumaABI]]
 
 export const injectedConnector = new InjectedConnector({})
 
-// App
+// APP
 export const Publisher: FC = () => {
   const { library, activate } = useWeb3React<any>()
 
@@ -48,7 +48,7 @@ export const Publisher: FC = () => {
   )
 }
 
-// Wallet
+// WALLET
 export const Wallet = () => {
   const { chainId, account, active } = useWeb3React<any>()
 
@@ -62,7 +62,7 @@ export const Wallet = () => {
   )
 }
 
-// Balance
+// BALANCE
 const formatEther = ethers.utils.formatEther
 
 export const Balance = () => {
@@ -70,10 +70,9 @@ export const Balance = () => {
   const { data: balance, mutate } = useSWR(['getBalance', account, 'latest'])
 
   useEffect(() => {
-    console.log('listening for blocks...')
     library.on('block', () => {
-      console.log('update balance...')
-      mutate(undefined, true)
+      console.log('Update balance')
+      mutate()
     })
     return () => {
       library.removeAllListeners('block')
@@ -81,37 +80,76 @@ export const Balance = () => {
   }, [])
 
   if (!balance) return <div>...</div>
-  return <div>{parseFloat(formatEther(balance)).toPrecision(6)}</div>
+  return <div>{parseFloat(formatEther(balance)).toPrecision(8)}</div>
 }
 
-// Defuma SC
+// DEFUMA SC
 export const Defuma = () => {
-  const { account, library } = useWeb3React()
+  const { library } = useWeb3React()
+  const { data: providersCountBN, mutate } = useSWR([DefumaABIAddress, 'providersCount'])
+  const providersCount = providersCountBN && providersCountBN.toNumber()
 
-  const { data: providersCount } = useSWR([DefumaABIAddress, 'providersCount'])
+  const [providerName, setProviderName] = useState('')
+  const [providers, setProviders] = useState([])
+
+  const defumaContract = new ethers.Contract(DefumaABIAddress, DefumaABI as any, library.getSigner())
 
   useEffect(() => {
-    // const contract = new ethers.Contract(DefumaABIAddress, ERC20ABI, library.getSigner())
-    // const fromMe = contract.filters.Transfer(account, null)
-    // library.on(fromMe, (from, to, amount, event) => {
-    //   console.log('Transfer|sent', { from, to, amount, event })
-    //   mutate(undefined, true)
-    // })
-    // const toMe = contract.filters.Transfer(null, account)
-    // library.on(toMe, (from, to, amount, event) => {
-    //   console.log('Transfer|received', { from, to, amount, event })
-    //   mutate(undefined, true)
-    // })
-    // return () => {
-    //   library.removeAllListeners(toMe)
-    //   library.removeAllListeners(fromMe)
-    // }
+    const providerEvent = defumaContract.filters.Provider()
+    library.on(providerEvent, (e) => {
+      console.log(`Emitting 'Provider'`)
+    })
+
+    return () => {
+      library.removeAllListeners(providerEvent)
+    }
   }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+      await defumaContract.registerProvider(providerName)
+      mutate()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const fetchProviders = async () => {
+    const providers = []
+    for (let i = 1; i <= providersCount; i++) {
+      const providerAddress = await defumaContract.providers(i)
+      providers.push(providerAddress)
+    }
+    setProviders(providers)
+  }
+
+  useEffect(() => {
+    if (providersCount) {
+      fetchProviders()
+    }
+  }, [providersCount])
 
   return (
     <div>
-      {providersCount && <p>providersCount: {providersCount.toString()}</p>}
+      {/* Providers count */}
+      {<p>Providers count: {providersCount}</p>}
       {/* Add Provider */}
+      <form onSubmit={handleSubmit}>
+        <label>
+          Provider name:
+          <input type="text" value={providerName} onChange={(e) => setProviderName(e.target.value)} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      {/* Display Providers */}
+      <p>Providers:</p>
+      <ul>
+        {providers.map((provider, i) => (
+          <li key={i}>{provider}</li>
+        ))}
+      </ul>
       {/* Add Provider Data */}
     </div>
   )

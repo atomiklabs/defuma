@@ -11,9 +11,12 @@ contract Defuma {
     uint256 public providersCount;
     mapping(address => string) public providerData;
 
+    event Provider(address provider);
+
     function registerProvider(address providerAddress) public {
         providersCount = providersCount.add(1);
         providers[providersCount] = providerAddress;
+        emit Provider(providerAddress);
     }
 
     function addProviderData(address providerAddress, string memory hash) public {

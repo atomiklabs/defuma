@@ -8,7 +8,7 @@ const Web3Provider = ethers.providers.Web3Provider
 
 function getLibrary(provider: any): any {
   const library = new Web3Provider(provider)
-  library.pollingInterval = 12000
+  // library.pollingInterval = 12000
   return library
 }
 
