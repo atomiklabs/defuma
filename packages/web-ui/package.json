@@ -1,14 +1,18 @@
 {
-  "name": "@atomik/web-ts",
-  "version": "0.1.0",
+  "name": "@atomiklabs/web-ui",
+  "version": "1.0.0",
+  "author": "Atomik Labs",
   "homepage": "./",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test"
   },
   "dependencies": {
+    "3box": "^1.20.3",
+    "@textile/hub": "^0.4.1",
+    "@textile/threads-core": "^0.1.33",
     "@web3-react/core": "^6.1.1",
     "@web3-react/injected-connector": "^6.0.7",
     "ether-swr": "^0.3.0",

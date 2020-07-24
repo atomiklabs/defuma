@@ -1,6 +1,7 @@
 {
   "name": "@atomiklabs/actors",
   "version": "1.0.0",
+  "author": "Atomik Labs",
   "main": "index.js",
   "license": "MIT",
   "scripts": {

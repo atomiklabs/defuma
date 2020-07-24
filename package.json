@@ -4,15 +4,14 @@
   "description": "Decentralised Full Market protocol",
   "author": "Atomik Labs",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "start": "yarn workspace @atomiklabs/web-ui start",
     "chain": "yarn workspace @atomiklabs/actors chain",
     "deploy": "yarn workspace @atomiklabs/actors deploy",
     "ipfs": "yarn workspace @atomiklabs/web-ui ipfs"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  }
+  "workspaces": [
+    "packages/*"
+  ]
 }
