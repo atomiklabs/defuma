@@ -9,14 +9,17 @@ contract Defuma {
 
     mapping(uint256 => address) public providers;
     uint256 public providersCount;
-    mapping(address => string) public productIpfs;
+    mapping(address => string) public providerData;
 
-    function addProvider(address providerAddress) public {
+    event Provider(address provider);
+
+    function registerProvider(address providerAddress) public {
         providersCount = providersCount.add(1);
         providers[providersCount] = providerAddress;
+        emit Provider(providerAddress);
     }
 
-    function addProduct(address providerAddress, string memory hash) public {
-        productIpfs[providerAddress] = hash;
+    function addProviderData(address providerAddress, string memory hash) public {
+        providerData[providerAddress] = hash;
     }
 }
