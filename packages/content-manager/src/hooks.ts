@@ -7,6 +7,9 @@ import {
   BucketsClient,
   LinksObject,
   getBucketKey,
+  getBucketIndex,
+  storeBucketIndex,
+  BucketIndex
 } from './buckets';
 
 interface UseBucketsProps {
@@ -21,6 +24,7 @@ export function useBuckets({
   bucketName,
 }: UseBucketsProps) {
   const [identity, setIdentity] = useState<Identity | null | undefined>();
+  const [bucketIndex, setBucketIndex] = useState<BucketIndex | undefined>();
   const [buckets, setBuckets] = useState<BucketsClient | null | undefined>();
   const [bucketKey, setBucketKey] = useState<string | null | undefined>();
   const [bucketLinks, setBucketLinks] = useState<
@@ -54,12 +58,24 @@ export function useBuckets({
   }, [buckets, bucketName, identity]);
 
   useEffect(() => {
-    if (buckets && bucketKey) {
+    if (buckets && bucketKey && identity) {
       getBucketLinks(buckets, bucketKey)
         .then(setBucketLinks)
         .catch(() => setBucketLinks(null));
+
+      getBucketIndex(buckets, bucketKey)
+        .then(setBucketIndex)
+        .catch(() => {
+          const newBucketIndex: BucketIndex = {
+            author: identity.public.toString(),
+            createdAt: Date.now(),
+            paths: []
+          }
+          setBucketIndex(newBucketIndex);
+          storeBucketIndex(buckets, bucketKey, newBucketIndex)
+        })
     }
-  }, [buckets, bucketKey]);
+  }, [buckets, bucketKey, identity]);
 
   return {
     isLoading,
@@ -67,5 +83,6 @@ export function useBuckets({
     buckets,
     bucketKey,
     bucketLinks,
+    bucketIndex,
   };
 }

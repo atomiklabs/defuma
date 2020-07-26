@@ -23,7 +23,9 @@ export async function createClient(
 /**
  * Create a Bucket client instance in dev mode.
  */
-export async function createDevClient(keyInfo: KeyInfo): Promise<BucketsClient> {
+export async function createDevClient(
+  keyInfo: KeyInfo
+): Promise<BucketsClient> {
   return Buckets.withKeyInfo(keyInfo);
 }
 
@@ -87,7 +89,7 @@ export async function exists(
   return typeof (await find(buckets, bucketName)) !== 'undefined';
 }
 
-export type Identity = Libp2pCryptoIdentity
+export type Identity = Libp2pCryptoIdentity;
 
 export async function getIdentity(): Promise<Identity> {
   /** Restore any cached user identity first */
@@ -110,7 +112,6 @@ export async function getBucketKey(
   identity: Identity
 ): Promise<string | null> {
   try {
-    console.log(identity)
     // Authorize the user and your insecure keys with getToken
     await buckets.getToken(identity);
 
@@ -118,9 +119,8 @@ export async function getBucketKey(
     if (typeof bucket !== 'undefined') {
       return bucket.key;
     }
-  }
-  catch (error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     throw error;
   }
 
@@ -144,4 +144,40 @@ export async function getBucketLinks(
   }
 
   return await buckets.links(bucketKey);
+}
+
+export const indexPath = 'index.json';
+
+export interface BucketIndex {
+  author: string;
+  createdAt: number;
+  paths: string[];
+}
+
+export async function getBucketIndex(
+  buckets: Buckets,
+  bucketKey: string
+): Promise<BucketIndex> {
+  const indexMetadata = buckets.pullPath(bucketKey, indexPath);
+  try {
+    console.log('reading index: start');
+    const { value } = await indexMetadata.next();
+    let str = '';
+    for (var i = 0; i < value.length; i++) {
+      str += String.fromCharCode(parseInt(value[i]));
+    }
+    return JSON.parse(str) as BucketIndex;
+  } catch (error) {
+    console.error('reading index error', error);
+    throw error;
+  }
+}
+
+export async function storeBucketIndex(
+  buckets: Buckets,
+  bucketKey: string,
+  indexState: BucketIndex
+) {
+  const indexBuffer = Buffer.from(JSON.stringify(indexState, null, 2));
+  await buckets.pushPath(bucketKey, indexPath, indexBuffer);
 }

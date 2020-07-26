@@ -1,6 +1,6 @@
 import React from 'react';
 import { useBuckets } from './hooks';
-import { LinksObject } from './buckets';
+import { LinksObject, BucketIndex } from './buckets';
 
 interface ContentManagerProps {
   bucketName: string;
@@ -15,15 +15,16 @@ export function ContentManager({
 }: ContentManagerProps) {
   const hookData = useBuckets({ userApiKey, userApiSecret, bucketName });
 
-  console.log({ ...hookData });
-
   return (
     <Wrapper>
       {hookData.identity != null && (
-        <h2>ID: {hookData.identity.toString().substr(-7, 7)}</h2>
+        <h2>ID: {hookData.identity.public.toString().substr(-7, 7)}</h2>
       )}
       {typeof hookData.bucketLinks !== 'undefined' && (
         <ListOfLinks bucketLinks={hookData.bucketLinks} />
+      )}
+      {typeof hookData.bucketIndex !== 'undefined' && (
+        <BucketIndexView {...hookData.bucketIndex} />
       )}
       {hookData.isLoading && <p>Loading data...</p>}
     </Wrapper>
@@ -61,5 +62,26 @@ function ListOfLinks({ bucketLinks }: ListOfLinksProps) {
         </li>
       ))}
     </ul>
+  );
+}
+
+interface BucketIndexViewProps extends BucketIndex {}
+
+function BucketIndexView({ author, createdAt, paths }: BucketIndexViewProps) {
+  return (
+    <section>
+      <header>
+        Summary: created by <strong>{author}</strong> on{' '}
+        <time>{new Date(createdAt).toLocaleString()}</time>
+      </header>
+      {paths.length === 0 && <p>Bucket is empty.</p>}
+      {paths.length !== 0 && (
+        <ul>
+          {paths.map(path => (
+            <li key={path}>{path}</li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
