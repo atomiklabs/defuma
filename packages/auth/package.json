@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "yarn run build && run-p watch dev",
-    "build": "yarn tsc",
+    "build": "tsc",
     "dev": "node-dev --respawn build/server/index.js",
     "watch": "tsc -w"
   },

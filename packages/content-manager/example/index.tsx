@@ -12,7 +12,7 @@ if (
 }
 
 const props = {
-  bucketName: 'files',
+  bucketName: 'dropzone',
   userApiKey: process.env.BUCKETS_USER_API_KEY,
   userApiSecret: process.env.BUCKETS_USER_API_SECRET || '',
 };
