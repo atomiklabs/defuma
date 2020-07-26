@@ -101,6 +101,13 @@
   resolved "https://registry.yarnpkg.com/@assemblyscript/loader/-/loader-0.9.4.tgz#a483c54c1253656bb33babd464e3154a173e1577"
   integrity sha512-HazVq9zwTVwGmqdwYzu7WyQ6FQVZ7SwET0KKQuKm55jD0IfUpZgN0OPIiZG3zV1iSrVYcN0bdwLRXI/VNCYsUA==
 
+"@atomiklabs/content-manager@file:packages/content-manager":
+  version "0.1.0"
+  dependencies:
+    "3box" "^1.20.3"
+    "@textile/hub" "^0.4.0"
+    tsdx "^0.13.2"
+
 "@babel/code-frame@7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"

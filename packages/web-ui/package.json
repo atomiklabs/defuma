@@ -10,6 +10,7 @@
     "test": "react-scripts test"
   },
   "dependencies": {
+    "@atomiklabs/content-manager": "file:../content-manager",
     "3box": "^1.20.3",
     "@textile/hub": "^0.4.1",
     "@textile/threads-core": "^0.1.33",
