@@ -99,7 +99,7 @@ export async function getIdentity(): Promise<Identity> {
   /** No cached identity existed, so create a new one */
   const identity = await Libp2pCryptoIdentity.fromRandom();
   /** Add the string copy to the cache */
-  localStorage.setItem('identity', identity.toString());
+  localStorage.setItem('user-private-identity', identity.toString());
   /** Return the random identity */
   return identity;
 }
@@ -109,13 +109,19 @@ export async function getBucketKey(
   bucketName: string,
   identity: Identity
 ): Promise<string | null> {
-  // Authorize the user and your insecure keys with getToken
-  await buckets.getToken(identity);
+  try {
+    console.log(identity)
+    // Authorize the user and your insecure keys with getToken
+    await buckets.getToken(identity);
 
-  const bucket = await buckets.open(bucketName);
-
-  if (typeof bucket !== 'undefined') {
-    return bucket.key;
+    const bucket = await buckets.open(bucketName);
+    if (typeof bucket !== 'undefined') {
+      return bucket.key;
+    }
+  }
+  catch (error) {
+    console.log(error)
+    throw error;
   }
 
   return null;

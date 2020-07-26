@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useBuckets } from './hooks';
 import { LinksObject } from './buckets';
 
@@ -13,20 +13,19 @@ export function ContentManager({
   userApiKey,
   userApiSecret,
 }: ContentManagerProps) {
-  useEffect(() => {
-    localStorage.clear()
-  }, [])
-
-  const hookData = useBuckets({userApiKey, userApiSecret, bucketName })
+  const hookData = useBuckets({ userApiKey, userApiSecret, bucketName });
 
   console.log({ ...hookData });
 
   return (
     <Wrapper>
-      {hookData.isLoading && <p>Loading data...</p>}
-      {!hookData.isLoading && typeof hookData.bucketLinks !== 'undefined' && (
+      {hookData.identity != null && (
+        <h2>ID: {hookData.identity.toString().substr(-7, 7)}</h2>
+      )}
+      {typeof hookData.bucketLinks !== 'undefined' && (
         <ListOfLinks bucketLinks={hookData.bucketLinks} />
       )}
+      {hookData.isLoading && <p>Loading data...</p>}
     </Wrapper>
   );
 }

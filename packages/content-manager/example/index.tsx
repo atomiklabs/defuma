@@ -12,12 +12,10 @@ if (
 }
 
 const props = {
-  bucketName: 'my-products',
+  bucketName: 'files',
   userApiKey: process.env.BUCKETS_USER_API_KEY,
   userApiSecret: process.env.BUCKETS_USER_API_SECRET || '',
 };
-
-console.log({ props })
 
 function App() {
   return <ContentManager {...props} />;

@@ -31,9 +31,9 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "packagescontent-manager",
-  "author": "Tomasz Kopacki",
-  "module": "dist/packagescontent-manager.esm.js",
+  "name": "@atomiklabs/content-manager",
+  "author": "Atomik Labs",
+  "module": "dist/content-manager.esm.js",
   "devDependencies": {
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
