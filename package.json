@@ -13,5 +13,8 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "tsdx": "^0.13.2"
+  }
 }
