@@ -4,7 +4,7 @@ import { Balance } from './balance'
 import { Defuma } from './defuma'
 import { Login } from '../login'
 
-export const Publisher: FC = () => {
+export const Provider: FC = () => {
   const { chainId, account, active } = useWeb3React()
 
   if (!active) return <h3>Loading...</h3>

@@ -2,26 +2,9 @@
   "name": "@atomiklabs/auth",
   "version": "1.0.0",
   "author": "Atomik Labs",
-  "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "yarn run build && run-p watch dev",
-    "build": "tsc",
-    "dev": "node-dev --respawn build/server/index.js",
-    "watch": "tsc -w"
-  },
-  "dependencies": {
-    "@textile/hub": "^0.4.1",
-    "dotenv": "^8.2.0",
-    "emittery": "^0.7.0",
-    "koa": "^2.12.0",
-    "koa-route": "^3.2.0",
-    "koa-websocket": "^6.0.0"
-  },
-  "devDependencies": {
-    "@types/koa": "^2.11.3",
-    "node-dev": "^4.0.0",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^3.9.3"
+    "install": "yarn --cwd server install && yarn --cwd client install",
+    "start": "yarn --cwd client start && yarn --cwd server start"
   }
 }

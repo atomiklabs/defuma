@@ -1,24 +1,14 @@
 import React, { FC, useEffect, useState } from 'react'
-import { AuthClient } from './authClient'
-// BUG: CRA + yarn workspaces
-//  - import { AuthClient } from '@atomiklabs/auth'
-// BUG: Relative imports outside of src/ are not supported
-//  - import { AuthClient } from '../../../auth/src/index'
+import { AuthClient } from '@atomiklabs/auth/client'
 
 export const Login: FC = () => {
   const [user, setUser] = useState(null)
 
   useEffect(() => {
-    initAuth()
+    ;(async function() {
+      setUser(await new AuthClient())
+    })()
   }, [])
-
-  const initAuth = async () => {
-    const authClient = new AuthClient()
-    await authClient.setupIdentity()
-    await authClient.login()
-    await authClient.listThreads()
-    setUser(authClient)
-  }
 
   if (!user) return <h2>Please authorize and log in...</h2>
 

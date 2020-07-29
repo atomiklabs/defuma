@@ -35,11 +35,11 @@ const loginWithChallenge = (identity: Identity): (() => Promise<UserAuth>) => {
         socket.send(
           JSON.stringify({
             pubkey: publicKey,
-            type: 'token',
+            type: 'token'
           })
         )
 
-        socket.onmessage = async (event) => {
+        socket.onmessage = async event => {
           const data = JSON.parse(event.data)
           switch (data.type) {
             case 'error': {
@@ -53,7 +53,7 @@ const loginWithChallenge = (identity: Identity): (() => Promise<UserAuth>) => {
               socket.send(
                 JSON.stringify({
                   type: 'challenge',
-                  sig: Buffer.from(signed).toJSON(),
+                  sig: Buffer.from(signed).toJSON()
                 })
               )
               break
@@ -76,6 +76,17 @@ export class AuthClient {
   identity?: string
   publicKey?: string
   threads?: string
+
+  constructor() {
+    return this.init() as any
+  }
+
+  init = async () => {
+    await this.setupIdentity()
+    await this.login()
+    await this.listThreads()
+    return this
+  }
 
   sign = async (buf: Buffer) => {
     if (!this.id) throw Error('No user ID found')

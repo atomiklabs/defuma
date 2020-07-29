@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 import { SWRConfig } from 'swr'
 import { ethFetcher } from 'ether-swr'
 import { ABI_DEFUMA } from './config'
-import { Publisher } from './publisher'
+import { Provider } from './provider'
 
 const injectedConnector = new InjectedConnector({})
 const ABIs = [[ABI_DEFUMA.address, ABI_DEFUMA.abi]]
@@ -28,8 +28,8 @@ const MainRun: FC = () => {
 
   return (
     <SWRConfig value={{ fetcher: ethFetcher(library, fetcherABI as any) }}>
-      {/* <Router> <Publisher/><Advertiser/> </Router */}
-      <Publisher />
+      {/* <Router> <Provider/><Advertiser/> </Router */}
+      <Provider />
     </SWRConfig>
   )
 }

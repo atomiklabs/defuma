@@ -4,11 +4,12 @@
     "esModuleInterop": true,
     "target": "es6",
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "sourceMap": true,
-    "outDir": "build",
-    "rootDir": "./",
-    "baseUrl": "."
+    "outDir": "dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
   },
-  "include": ["server"],
+  "include": ["src"],
   "exclude": ["node_modules"]
 }
