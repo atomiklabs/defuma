@@ -1,6 +1,10 @@
 import { Client, UserAuth } from '@textile/hub'
 import { Libp2pCryptoIdentity, Identity } from '@textile/threads-core'
 import Box from '3box'
+// import dotenv from 'dotenv'
+// dotenv.config()
+
+// const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://private-block.herokuapp.com/',
 
 const getIdentity = async (): Promise<Libp2pCryptoIdentity> => {
   const box = await Box.create((window as any).ethereum)
@@ -26,8 +30,18 @@ const getIdentity = async (): Promise<Libp2pCryptoIdentity> => {
 const loginWithChallenge = (identity: Identity): (() => Promise<UserAuth>) => {
   return () => {
     return new Promise((resolve, reject) => {
-      const socketUrl = 'ws://localhost:3001/ws/userauth'
-      const socket = new WebSocket(socketUrl)
+      // let socketUrl = ''
+
+      // if (process.env.PORT) {
+      const socketUrl = window.location.origin.replace(/^http/, 'ws')
+      // } else {
+      //   socketUrl = 'ws://localhost:3001/ws/userauth'
+      // }
+
+      // const socketUrl = 'ws://localhost:3001/ws/userauth'
+      // const socketUrl = 'https://atomiklabs.herokuapp.com/'
+
+      const socket = new WebSocket(socketUrl + '/ws/userauth')
 
       socket.onopen = () => {
         const publicKey = identity.public.toString()

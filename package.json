@@ -16,5 +16,8 @@
   ],
   "dependencies": {
     "tsdx": "^0.13.2"
+  },
+  "engines": {
+    "node": "v10.21.0"
   }
 }

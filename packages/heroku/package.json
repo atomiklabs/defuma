@@ -1,0 +1,25 @@
+{
+  "name": "@atomiklabs/heroku",
+  "version": "1.0.0",
+  "description": "Decentralised Full Market protocol",
+  "author": "Atomik Labs",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "deploy": "python deploy.py",
+    "start": "ENV='production' node web-ui/build-server/server.app.js"
+  },
+  "dependencies": {
+    "koa": "^2.12.0",
+    "koa-route": "^3.2.0",
+    "koa-static": "^5.0.0",
+    "koa-websocket": "^6.0.0",
+    "dotenv": "^8.2.0",
+    "emittery": "^0.7.0",
+    "@textile/hub": "^0.4.1"
+  },
+  "engines": {
+    "node": "10.21.0",
+    "yarn": "1.22.4"
+  }
+}

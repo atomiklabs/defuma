@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
-import { AuthClient } from '@atomiklabs/auth/client'
+import { AuthClient } from './authClient'
 
 export const Login: FC = () => {
   const [user, setUser] = useState(null)
@@ -9,6 +9,8 @@ export const Login: FC = () => {
       setUser(await new AuthClient())
     })()
   }, [])
+
+  console.log('user ', user)
 
   if (!user) return <h2>Please authorize and log in...</h2>
 
