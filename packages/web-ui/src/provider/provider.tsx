@@ -6,7 +6,7 @@ export const Provider: FC = () => {
   const { chainId, account, active } = useWeb3React()
   const [isLogged, setIsLogged] = useState(false)
 
-  if (!active) return <h3>Loading...</h3>
+  if (!active) return <div></div>
 
   return (
     <div>
