@@ -8,7 +8,7 @@
     "chain": "yarn buidler node",
     "test": "yarn buidler test --network buidlerevm",
     "compile": "yarn buidler compile",
-    "deploy": "yarn buidler run scripts/deploy.js && yarn buidler run scripts/publish.js",
+    "deploy": "yarn buidler run scripts/deploy.js --network rinkeby && yarn buidler run scripts/publish.js",
     "watch": "node scripts/watch.js",
     "accounts": "yarn buidler accounts",
     "balance": "yarn buidler balance",

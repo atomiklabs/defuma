@@ -106,10 +106,9 @@ module.exports = {
       url: 'http://localhost:8545',
     },
     rinkeby: {
-      url: 'https://rinkeby.infura.io/v3/3041d1e3224845e3a6a24060df6a8c7f',
-      accounts: {
-        mnemonic: mnemonic,
-      },
+      url: 'https://rinkeby.infura.io/v3/d2b6be223087401fb875522c75d84571',
+      accounts: [`0x${'xxx'}`]
+
     },
   },
   solc: {

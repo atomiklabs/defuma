@@ -18,6 +18,7 @@
     "@textile/threads-core": "^0.1.33",
     "@web3-react/core": "^6.1.1",
     "@web3-react/injected-connector": "^6.0.7",
+    "bootstrap": "^4.5.2",
     "dotenv": "^8.2.0",
     "emittery": "^0.7.0",
     "ether-swr": "^0.3.0",

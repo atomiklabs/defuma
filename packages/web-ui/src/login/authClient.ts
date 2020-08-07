@@ -38,7 +38,7 @@ const loginWithChallenge = (identity: Identity): (() => Promise<UserAuth>) => {
       //   socketUrl = 'ws://localhost:3001/ws/userauth'
       // }
 
-      // const socketUrl = 'ws://localhost:3001/ws/userauth'
+      // const socketUrl = 'ws://localhost:3001'
       // const socketUrl = 'https://atomiklabs.herokuapp.com/'
 
       const socket = new WebSocket(socketUrl + '/ws/userauth')
@@ -98,7 +98,7 @@ export class AuthClient {
   init = async () => {
     await this.setupIdentity()
     await this.login()
-    await this.listThreads()
+    // await this.listThreads()
     return this
   }
 
