@@ -16,7 +16,7 @@ export const Defuma: FC = () => {
 
   useEffect(() => {
     const providerEvent = defumaContract.filters.Provider()
-    library.on(providerEvent, (e) => {
+    library.on(providerEvent, e => {
       console.log("Emitting 'Provider'")
     })
 
@@ -31,7 +31,7 @@ export const Defuma: FC = () => {
     }
   }, [providersCount])
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     try {
       await defumaContract.registerProvider(providerName)
@@ -52,24 +52,33 @@ export const Defuma: FC = () => {
 
   return (
     <div>
-      {/* Providers count */}
-      {<p>Providers count: {providersCount}</p>}
-      {/* Add Provider */}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Provider name:
-          <input type="text" value={providerName} onChange={(e) => setProviderName(e.target.value)} />
-        </label>
-        <input type="submit" value="Submit" />
+      <form className="form-inline" onSubmit={handleSubmit}>
+        <div className="form-group mx-sm-3 mb-2">
+          <label className="mr-2">Product schema:</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="{ ... }"
+            value={providerName}
+            onChange={e => setProviderName(e.target.value)}
+          />
+        </div>
+        <button
+          type="submit"
+          className="btn btn-dark mb-2"
+        >
+          Add Product
+        </button>
       </form>
-      {/* Display Providers */}
-      <p>Providers:</p>
-      <ul>
+
+      <div className="card-header">Schemas:</div>
+      <ul className="list-group list-group-flush">
         {providers.map((provider, i) => (
-          <li key={i}>{provider}</li>
+          <li key={i} className="list-group-item">
+            {provider}
+          </li>
         ))}
       </ul>
-      {/* Add Provider Data */}
     </div>
   )
 }

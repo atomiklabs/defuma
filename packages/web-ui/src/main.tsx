@@ -6,6 +6,7 @@ import { SWRConfig } from 'swr'
 import { ethFetcher } from 'ether-swr'
 import { ABI_DEFUMA } from './config'
 import { Provider } from './provider'
+import './main.css'
 
 const injectedConnector = new InjectedConnector({})
 const ABIs = [[ABI_DEFUMA.address, ABI_DEFUMA.abi]]
@@ -34,7 +35,7 @@ const MainRun: FC = () => {
   )
 }
 
-const getLibrary = (provider) => {
+const getLibrary = provider => {
   const library = new ethers.providers.Web3Provider(provider)
   // library.pollingInterval = 12000
   return library

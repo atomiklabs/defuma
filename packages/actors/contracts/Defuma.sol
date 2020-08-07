@@ -7,13 +7,13 @@ import "@nomiclabs/buidler/console.sol";
 contract Defuma {
     using SafeMath for uint256;
 
-    mapping(uint256 => address) public providers;
+    mapping(uint256 => string) public providers;
     uint256 public providersCount;
     mapping(address => string) public providerData;
 
-    event Provider(address provider);
+    event Provider(string provider);
 
-    function registerProvider(address providerAddress) public {
+    function registerProvider(string memory providerAddress) public {
         providersCount = providersCount.add(1);
         providers[providersCount] = providerAddress;
         emit Provider(providerAddress);

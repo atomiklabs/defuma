@@ -41,19 +41,20 @@ export function ContentManager({
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     // @ts-ignore
-    console.log('form entries', [...(formData.entries())])
-
+    console.log('form entries', [...formData.entries()]);
   }
 
   function cancelFileChanges(event: FormEvent<HTMLFormElement>) {
-    console.log(new FormData(event.currentTarget))
-    setFileBeingEdited(null)
+    console.log(new FormData(event.currentTarget));
+    setFileBeingEdited(null);
   }
 
   return (
     <Wrapper>
       {hookData.identity != null && (
-        <h2>ID: {hookData.identity.public.toString().substr(-7, 7)}</h2>
+        <h6 className="card-subtitle mb-2 text-muted">
+          ID: {hookData.identity.public.toString().substr(-7, 7)}
+        </h6>
       )}
       {typeof hookData.bucketLinks !== 'undefined' && (
         <ListOfLinks bucketLinks={hookData.bucketLinks} />
@@ -65,15 +66,35 @@ export function ContentManager({
           createItem={createItem}
         />
       )}
-      {hookData.isLoading && <p>Loading data...</p>}
+      {hookData.isLoading && <Spinner />}
       {fileBeingEdited != null && (
         <form onSubmit={storeFileChanges} onReset={cancelFileChanges}>
-          <label htmlFor="file-name">File name</label>
-          <input type="text" name="file-name" defaultValue={fileBeingEdited.name} />
-          <label htmlFor="file-contents">File name</label>
-          <textarea rows={10} cols={10} name="file-contents" defaultValue={fileBeingEdited.contents} />
-          <button type="submit">Save</button>
-          <button type="reset">Cancel</button>
+          <div className="form-group">
+            <label htmlFor="file-name">File name: </label>
+            <input
+              type="text"
+              className="form-control"
+              name="file-name"
+              defaultValue={fileBeingEdited.name}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="file-contents">File name: </label>
+            <textarea
+              className="form-control"
+              rows={3}
+              name="file-contents"
+              defaultValue={fileBeingEdited.contents}
+            />
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn btn-dark mr-2">
+              Save
+            </button>
+            <button type="reset" className="btn btn-dark">
+              Cancel
+            </button>
+          </div>
         </form>
       )}
     </Wrapper>
@@ -84,7 +105,7 @@ interface WrapperProps extends React.PropsWithChildren<{}> {}
 function Wrapper({ children }: WrapperProps) {
   return (
     <div>
-      <h1>Content manager</h1>
+      <h5 className="card-title">Content manager</h5>
       {children}
     </div>
   );
@@ -101,16 +122,19 @@ function ListOfLinks({ bucketLinks }: ListOfLinksProps) {
   }
 
   return (
-    <ul>
-      {links.map(([linkType, link], idx) => (
-        <li key={idx}>
-          {linkType}:{' '}
-          <a href={link} target="_blank">
-            {link}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <div className="card-header">Content links:</div>
+      <ul className="list-group list-group-flush">
+        {links.map(([linkType, link], idx) => (
+          <li className="list-group-item" key={idx}>
+            {linkType}:{' '}
+            <a href={link} target="_blank">
+              {link.substr(0, 50)}...
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -129,12 +153,21 @@ function BucketIndexView({
   return (
     <section>
       <header>
-        Summary: created by <strong>{author}</strong> on{' '}
-        <time>{new Date(createdAt).toLocaleString()}</time>
+        <br />
+        <h5>Summary:</h5>
+        Created by <code>{author}</code>
+        <p>
+          on <time>{new Date(createdAt).toLocaleString()}</time>
+        </p>
       </header>
       <>
-        <h2>Bucket index view</h2>
-        <button type="button" onClick={() => createItem()}>
+        <br />
+        <h5>Bucket index view:</h5>
+        <button
+          type="button"
+          className="btn btn-dark mb-2"
+          onClick={() => createItem()}
+        >
           New item
         </button>
 
@@ -144,7 +177,11 @@ function BucketIndexView({
             {paths.map(path => (
               <li key={path}>
                 {path}{' '}
-                <button type="button" onClick={() => editItem(path)}>
+                <button
+                  className="btn btn-dark mb-2"
+                  type="button"
+                  onClick={() => editItem(path)}
+                >
                   Edit
                 </button>
               </li>
@@ -155,3 +192,11 @@ function BucketIndexView({
     </section>
   );
 }
+
+const Spinner = () => (
+  <div className="d-flex justify-content-center">
+    <div className="spinner-border" role="status">
+      <span className="sr-only">Loading...</span>
+    </div>
+  </div>
+);
